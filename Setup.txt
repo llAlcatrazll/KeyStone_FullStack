@@ -1,0 +1,25 @@
+Client
+    npm create vite@latest
+        package.json
+              "proxy": "http://localhost:5000",
+    npm i axios react-router-dom
+
+Server
+    npm init-y
+    npm i express mysql2 cors nodemon
+
+
+
+database 
+    students = booking
+    student_details = user_details
+
+
+
+Log In CRUD
+    https://www.youtube.com/watch?v=F53MPHqOmYI&t=2409s
+Alternate 
+    https://www.youtube.com/watch?v=jwEbw0zJqiY
+
+COMPELTE SETUP
+    https://www.youtube.com/watch?v=WPIuGIAD4hY
