@@ -23,3 +23,8 @@ Alternate
 
 COMPELTE SETUP
     https://www.youtube.com/watch?v=WPIuGIAD4hY
+
+
+    Project Initialization
+        April 27 - 9:00 AM
+            First commit 3:40 PM
