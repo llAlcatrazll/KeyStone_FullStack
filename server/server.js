@@ -31,12 +31,13 @@ app.post("/add_user", (req, res) => {
 //       /students
 //  DISPLAY ALL BOOKINGS
 app.get("/booking", (req, res) => {
-  const sql = "SELECT * FROM user_details";
+  const sql = "SELECT * FROM user_details WHERE `Deleted`='Active'";
   db.query(sql, (err, result) => {
     if (err) res.json({ message: "Server error" });
     return res.json(result);
   });
 });
+
 //
 //
 //       /get_student
@@ -71,7 +72,43 @@ app.post("/edit_user/:id", (req, res) => {
     return res.json({ success: "Student updated successfully" });
   });
 });
+//
+//
+// DELETE BOOKING /UPDATE 1 VALUE I-O
+app.post("/delete_user/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "UPDATE user_details SET `Deleted`='deleted' WHERE id=?";
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ message: "Database error" });
+    }
+    return res.json({ success: "User marked as deleted successfully" });
+  });
+});
+//
+//
+//
+// LOG IN USER
+app.post("/check_user", (req, res) => {
+  const { email, password } = req.body;
+  const sql = "SELECT * FROM user_login WHERE email = ? AND password = ?";
 
+  db.query(sql, [email, password], (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: "Server error" });
+    }
+    if (result.length > 0) {
+      // User exists and password matches
+      return res.json({ success: true, message: "Login successful" });
+    } else {
+      // No user found with the provided email and password
+      return res.json({ success: false, message: "Invalid email or password" });
+    }
+  });
+});
+
+//
 //
 //
 app.listen(port, () => {
