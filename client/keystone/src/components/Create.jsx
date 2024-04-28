@@ -34,7 +34,7 @@ function Create() {
         </button>
         <form action="" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="">Name</label>
+            <label htmlFor="">Event Name</label>
             <input
               type="text"
               name="name"
@@ -42,7 +42,7 @@ function Create() {
             />
           </div>
           <div>
-            <label htmlFor="">Email</label>
+            <label htmlFor="">Event Purpose</label>
             <input
               type="text"
               name="email"
@@ -50,7 +50,7 @@ function Create() {
             />
           </div>
           <div>
-            <label htmlFor="">Age</label>
+            <label htmlFor="">Event Date</label>
             <input
               type="text"
               name="age"
@@ -58,7 +58,57 @@ function Create() {
             />
           </div>
           <div>
-            <label htmlFor="">Gender</label>
+            <label htmlFor="">Starting Time</label>
+            <input
+              type="text"
+              name="gender"
+              onChange={(e) => setValues({ ...values, gender: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="">Ending Time</label>
+            <input
+              type="text"
+              name="gender"
+              onChange={(e) => setValues({ ...values, gender: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="">Event Facility</label>
+            <input
+              type="text"
+              name="gender"
+              onChange={(e) => setValues({ ...values, gender: e.target.value })}
+            />
+          </div>
+          <div>.</div>
+          <button>Autofill</button>
+          <div>
+            <label htmlFor="">Name</label>
+            <input
+              type="text"
+              name="gender"
+              onChange={(e) => setValues({ ...values, gender: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="">Designation</label>
+            <input
+              type="text"
+              name="gender"
+              onChange={(e) => setValues({ ...values, gender: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="">College Affiliation</label>
+            <input
+              type="text"
+              name="gender"
+              onChange={(e) => setValues({ ...values, gender: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="">Club</label>
             <input
               type="text"
               name="gender"

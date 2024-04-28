@@ -5,6 +5,8 @@ import Edit from "./components/Edit";
 import Read from "./components/Read";
 import Create from "./components/Create";
 import Login from "./Login";
+import Adminpanel from "./admincomponenets/Adminpanel";
+
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +16,7 @@ function App() {
         <Route path="/create" element={<Create />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/read/:id" element={<Read />} />
+        <Route path="/Adminpanel" element={<Adminpanel />} />
       </Routes>
     </BrowserRouter>
   );

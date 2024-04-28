@@ -28,3 +28,66 @@ COMPELTE SETUP
     Project Initialization
         April 27 - 9:00 AM
             First commit 3:40 PM
+            Added CRUD and Login System 11:00 PM
+            Work hour estimate : 6-8 hrs
+
+        April 28 - 5:50 PM
+
+
+
+
+
+    SAMPLE DATA PASSED
+
+USER_DETAILS: {
+    "id": "01",
+    "Email":        "alexismagaway456@gmail.com",
+    "Password":     "alexismagaway123",
+    "Username":         "Alexis Magaway",
+    "Club":         "CCIS LGU",
+    "Account_Type": "Admin",
+    "Position":      "Academic Secretary",
+    "College Affiliation": "CCIS",
+}
+
+
+BOOKINGS: {
+    "booking_id":       "8sblnr9segh",
+    "booker_id":         "01",
+    "AdressofEvent":     "Cor Jesu",
+    "DateofEvent":       "2023-01-12",
+    "StartingTimeofEvent": "02:34",
+    "EndingTimeofEvent": "14:21",
+    "FacilityofEvent":   "somewhere",
+    "NameofEvent":       "working? ",
+    "PurposeofEvent":    "to enjoy the year",
+    "eventStatus":       "Pending",
+    "CollegeAffiliation": "CSP"
+  },
+
+  booking_id
+  booker_id
+  eventstatus
+  
+
+  eventname
+  eventpurpose
+  eventdate
+  startingtime
+  endingtime
+  eventfacility
+
+  SEPARETE HAVE AUTO FILL FUNCTION
+
+  Username
+  designation
+  collegeAffiliation
+  club
+  
+
+
+
+Admin
+     DISPLAY ALL THE AVAILABLE VENUES
+     DISPLAY ALL USERS AND THEIR ACCOUNT TYPES
+     DISPLAY PENDING APPROVED AND DENIED BOOKINGS - BOOTOM HALF SCREEN

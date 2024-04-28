@@ -37,7 +37,15 @@ app.get("/booking", (req, res) => {
     return res.json(result);
   });
 });
-
+//
+// UPDATED BOOKINGS
+app.get("/venue_bookings", (req, res) => {
+  const sql = "SELECT * FROM venue_bookings WHERE `deleted`='Active'";
+  db.query(sql, (err, result) => {
+    if (err) res.json({ message: "Server error" });
+    return res.json(result);
+  });
+});
 //
 //
 //       /get_student
@@ -111,6 +119,51 @@ app.post("/check_user", (req, res) => {
 //
 //
 //
+
+//
+// ADMIN STUFF
+//
+// DISPLAY LISTED VENUES
+// app.get("/venues", (req, res) => {
+//   const sql = "SELECT * FROM event_venues WHERE `Deleted`='Active'";
+//   db.query(sql, (err, result) => {
+//     if (err) res.json({ message: "Server error" });
+//     return res.json(result);
+//   });
+// });
+app.get("/users", (req, res) => {
+  const sql = "SELECT * FROM user_login WHERE `status`='Active'";
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error fetching user data:", err);
+      return res.status(500).json({ message: "Server error" }); // Sending 500 status for internal server errors
+    }
+    return res.json(result);
+  });
+});
+
+//
+//
+// DISPLAY LISTED USERS
+// app.get("/users", (req, res) => {
+//   const sql = "SELECT * FROM user_login WHERE `Deleted`='Active'";
+//   db.query(sql, (err, result) => {
+//     if (err) res.json({ message: "Server error" });
+//     return res.json(result);
+//   });
+// });
+app.get("/venues", (req, res) => {
+  const sql = "SELECT * FROM event_venues WHERE `Deleted`='Active'";
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error fetching venue data:", err);
+      return res.status(500).json({ message: "Server error" }); // Sending 500 status for internal server errors
+    }
+    return res.json(result);
+  });
+});
+//
+// CONNECT TO PORT NUMBER
 app.listen(port, () => {
   console.log("listening");
 });
