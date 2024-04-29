@@ -70,37 +70,87 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
       })
       .catch((err) => console.log(err));
   }, []);
+  //
+  //  STORE DATA FOR NEW VENUE
+  const [values, setValues] = useState({
+    venue_name: "",
+  });
+  //
+  // ADD A NEW VENUE TO DATABASE
+  //
+  function handleSubmit() {
+    // function handleSubmit(e) {
+    // e.preventDefault();
+    console.log(values);
+    axios
+      .post("http://localhost:5000/add_venue", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    //   post to database
+  }
+  //
+  // ADD NEW USER
+  const [uservalues, setUserValues] = useState({
+    email: "",
+    password: "",
+    username: "",
+    college_affiliation: "",
+    club: "",
+    position: "",
+    account_type: "",
+  });
+  function handleuserSubmit() {
+    // function handleSubmit(e) {
+    // e.preventDefault();
+    console.log(values);
+    axios
+      .post("http://localhost:5000/add_newuser", uservalues)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    //   post to database
+  }
 
   return (
     <>
-      <div className="bg-slate-900 min-w-full ps-8 ">test</div>
+      <div className="bg-slate-900 min-w-full ps-8 "></div>
       <div className="">
         <h1>Admin Panel</h1>
         <div>
           <div className="flex flex-row">
-            <div className="bg-slate-950 ps-8 ">
-              <table>
-                <thead>
-                  <tr className="w-52">Venue</tr>
-                  <tr>
-                    <th className="w-72">Venue ID</th>
-                    <th className="w-72">Venue Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {venueData.map((venue) => (
-                    <tr key={venue.venue_id}>
-                      <td className="w-52">{venue.venue_id}</td>
-                      <td className="w-52">{venue.venue_name}</td>
-                      <td className="w-52">
-                        <Link to={`/read/${venue.venue_id}`}>Read</Link>
-                        <Link to={`/edit/${venue.venue_id}`}>Edit</Link>
-                        <button>Delete</button>
-                      </td>
+            <div className="flex flex-col">
+              <div className="bg-slate-950 ps-8 h-full ">
+                <table>
+                  <thead>
+                    <tr className="w-52">Venue</tr>
+                    <tr>
+                      <th className="w-72">Venue ID</th>
+                      <th className="w-72">Venue Name</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {venueData.map((venue) => (
+                      <tr key={venue.venue_id}>
+                        <td className="w-52">{venue.venue_id}</td>
+                        <td className="w-52">{venue.venue_name}</td>
+                        <td className="w-52">
+                          <Link to={`/read/${venue.venue_id}`}>Read</Link>
+                          <Link to={`/edit/${venue.venue_id}`}>Edit</Link>
+                          <button>Delete</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <Link>
+                  <button>Add Venue</button>
+                </Link>
+              </div>
             </div>
             <div className="justify-center w-5/6 bg-slate-900 ps-8 ">
               <table>
@@ -115,6 +165,7 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
                     <th className="w-36">Position</th>
                     <th className="w-36">College Affiliation</th>
                   </tr>
+                  <component />
                 </thead>
                 <tbody>
                   {userData.map((user) => (
@@ -140,13 +191,12 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
               </table>
             </div>
           </div>
-          <Link to={"/"}>
-            <button>Back</button>
-          </Link>
+
           <div className="w-full bg-indigo-900 h-96 ps-8 ">
             <div className="flex flex-row justify-center">
               <div className="w-96 bg-gray-900 rounded-md text-center">
                 Pending
+                <hr />
                 <div>
                   {isPending.map((venue) => (
                     <tr key={venue.venue_id}>
@@ -167,6 +217,7 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
               </div>
               <div className="w-96 bg-gray-900 rounded-md text-center ml-14 mr-14">
                 Approved
+                <hr />
                 <div>
                   {" "}
                   {isApproved.map((venue) => (
@@ -188,6 +239,7 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
               </div>
               <div className="w-96 bg-gray-900 rounded-md text-center">
                 Denied
+                <hr />
                 <div>
                   {" "}
                   {isDenied.map((venue) => (
@@ -207,6 +259,131 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+
+          <button>Back</button>
+          <div className="flex flex-row">
+            <div className="bg-gray-500 w-96 p-10 pr-10">
+              <form action="" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="">Add Venue</label>
+                  <input
+                    type="text"
+                    name="venue_name"
+                    onChange={(e) =>
+                      setValues({
+                        ...values,
+                        venue_name: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+            {/* 
+            // 
+            // 
+            // 
+            //  */}
+            <div className="ml-20 bg-slate-600 h-80 p-10 pt-10">
+              Right
+              <form action="" onSubmit={handleuserSubmit}>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="email"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        email: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="password"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        password: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="username"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        username: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="college_affiliation"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        college_affiliation: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="club"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        club: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="position"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        position: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Event Name</label>
+                  <input
+                    type="text"
+                    name="account_type"
+                    onChange={(e) =>
+                      setUserValues({
+                        ...uservalues,
+                        account_type: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <button type="submit">Submit</button>
+              </form>
+              <hr />
             </div>
           </div>
         </div>

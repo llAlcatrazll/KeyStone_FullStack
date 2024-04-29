@@ -15,12 +15,34 @@ const db = mysql.createConnection({
   password: "",
   database: "booking",
 });
-//  /add_user
-//  CREATE BOOKING
-app.post("/add_user", (req, res) => {
-  sql =
-    "INSERT INTO user_details (`name`,`email`,`age`,`gender`)VALUES (?, ?, ?, ?)";
-  const values = [req.body.name, req.body.email, req.body.age, req.body.gender];
+//
+//  ADD NEW USER
+app.post("/add_newuser", (req, res) => {
+  const sql =
+    "INSERT INTO user_login (`email`,`password`,`username`,`college_affiliation`,`club`,`position`,`account_type`)VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const values = [
+    100005,
+    req.body.email,
+    req.body.password,
+    req.body.college_affiliation,
+    req.body.club,
+    req.body.position,
+    req.body.account_type,
+  ];
+  console.log(req.body);
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      return res.json({ message: "Something unexpected has occured" + err });
+    }
+    return res.json({ success: "Student added successfully" });
+  });
+});
+//
+//  ADD EVENT VENUES
+app.post("/add_venue", (req, res) => {
+  const sql = "INSERT INTO event_venues (`venue_name`)VALUES (?)";
+  const values = [req.body.venue_name];
+  console.log(req.body);
   db.query(sql, values, (err, result) => {
     if (err)
       return res.json({ message: "Something unexpected has occured" + err });
@@ -110,10 +132,11 @@ app.post("/edit_user/:id", (req, res) => {
 //
 //
 // DELETE BOOKING /UPDATE 1 VALUE I-O
-app.post("/delete_user/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = "UPDATE user_details SET `Deleted`='deleted' WHERE id=?";
-  db.query(sql, [id], (err, result) => {
+app.post("/delete_user/:booking_id", (req, res) => {
+  const booking_id = req.params.booking_id;
+  const sql =
+    "UPDATE venue_bookings SET `deleted`='Deleted' WHERE booking_id=?";
+  db.query(sql, [booking_id], (err, result) => {
     if (err) {
       console.error("Database error:", err);
       return res.status(500).json({ message: "Database error" });
@@ -158,29 +181,29 @@ app.post("/check_user", (req, res) => {
 //     return res.json(result);
 //   });
 // });
-app.get("/users", (req, res) => {
-  const sql = "SELECT * FROM user_login WHERE `status`='Active'";
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error("Error fetching user data:", err);
-      return res.status(500).json({ message: "Server error" }); // Sending 500 status for internal server errors
-    }
-    return res.json(result);
-  });
-});
+// app.get("/users", (req, res) => {
+//   const sql = "SELECT * FROM user_login WHERE `status`='Active'";
+//   db.query(sql, (err, result) => {
+//     if (err) {
+//       console.error("Error fetching user data:", err);
+//       return res.status(500).json({ message: "Server error" }); // Sending 500 status for internal server errors
+//     }
+//     return res.json(result);
+//   });
+// });
 
 //
 //
 // DISPLAY LISTED USERS
-// app.get("/users", (req, res) => {
-//   const sql = "SELECT * FROM user_login WHERE `Deleted`='Active'";
-//   db.query(sql, (err, result) => {
-//     if (err) res.json({ message: "Server error" });
-//     return res.json(result);
-//   });
-// });
+app.get("/users", (req, res) => {
+  const sql = "SELECT * FROM user_login WHERE `Deleted`='Active'";
+  db.query(sql, (err, result) => {
+    if (err) res.json({ message: "Server error" });
+    return res.json(result);
+  });
+});
 app.get("/venues", (req, res) => {
-  const sql = "SELECT * FROM event_venues WHERE `Deleted`='Active'";
+  const sql = "SELECT * FROM event_venues WHERE `deleted`='Active'";
   db.query(sql, (err, result) => {
     if (err) {
       console.error("Error fetching venue data:", err);

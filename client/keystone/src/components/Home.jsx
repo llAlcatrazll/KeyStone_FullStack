@@ -35,9 +35,9 @@ function Home() {
         .catch((err) => console.log(err));
     }
   }, [deleted]);
-  function handleDelete(id) {
+  function handleDelete(booking_id) {
     axios
-      .post(`http://localhost:5000/delete_user/${id}`)
+      .post(`http://localhost:5000/delete_user/${booking_id}`)
       .then((res) => {
         console.log(res.data);
         // Optionally, refresh the data or remove the deleted item from the state
@@ -93,7 +93,9 @@ function Home() {
                 <td className="w-56">
                   <Link to={`/read/${venue.booking_id}`}>Read</Link>
                   <Link to={`/edit/${venue.booking_id}`}>Edit</Link>
-                  <button onClick={() => handleDelete(venue.id)}>Delete</button>
+                  <button onClick={() => handleDelete(venue.booking_id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             );
