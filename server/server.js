@@ -15,7 +15,7 @@ const db = mysql.createConnection({
   password: "",
   database: "booking",
 });
-//        /add_user
+//  /add_user
 //  CREATE BOOKING
 app.post("/add_user", (req, res) => {
   sql =
@@ -24,6 +24,33 @@ app.post("/add_user", (req, res) => {
   db.query(sql, values, (err, result) => {
     if (err)
       return res.json({ message: "Something unexpected has occured" + err });
+    return res.json({ success: "Student added successfully" });
+  });
+});
+//
+//
+//
+app.post("/create_booking", (req, res) => {
+  const sql =
+    "INSERT INTO venue_bookings (`booker_id`,`eventname`,`event_purpose`,`event_date`,`starting_time`,`ending_time`,`event_facility`,`username`,`designation`,`college_afiliation`,`club`)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  const values = [
+    100005,
+    req.body.eventname,
+    req.body.event_purpose,
+    req.body.event_date,
+    req.body.starting_time,
+    req.body.ending_time,
+    req.body.event_facility,
+    req.body.username,
+    req.body.designation,
+    req.body.college_afiliation,
+    req.body.club,
+  ];
+  console.log(req.body);
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      return res.json({ message: "Something unexpected has occured" + err });
+    }
     return res.json({ success: "Student added successfully" });
   });
 });
@@ -159,6 +186,37 @@ app.get("/venues", (req, res) => {
       console.error("Error fetching venue data:", err);
       return res.status(500).json({ message: "Server error" }); // Sending 500 status for internal server errors
     }
+    return res.json(result);
+  });
+});
+//
+//
+// GET IS PENDING
+app.get("/booking_pending", (req, res) => {
+  const sql =
+    "SELECT * FROM venue_bookings WHERE `deleted`='Active' AND `status`='Pending'";
+  db.query(sql, (err, result) => {
+    if (err) res.json({ message: "Server error" });
+    return res.json(result);
+  });
+});
+//
+// GET IS DENIED
+app.get("/booking_denied", (req, res) => {
+  const sql =
+    "SELECT * FROM venue_bookings WHERE `deleted`='Active' AND `status`='Denied'";
+  db.query(sql, (err, result) => {
+    if (err) res.json({ message: "Server error" });
+    return res.json(result);
+  });
+});
+//
+// GET IS APPROVED
+app.get("/booking_approved", (req, res) => {
+  const sql =
+    "SELECT * FROM venue_bookings WHERE `deleted`='Active' AND `status`='Approved'";
+  db.query(sql, (err, result) => {
+    if (err) res.json({ message: "Server error" });
     return res.json(result);
   });
 });

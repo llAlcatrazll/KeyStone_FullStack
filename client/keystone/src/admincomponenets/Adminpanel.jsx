@@ -5,6 +5,9 @@ import axios from "axios";
 function Adminpanel() {
   const [venueData, setVenueData] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [isPending, setIsPending] = useState([]);
+  const [isApproved, setIsApproved] = useState([]);
+  const [isDenied, setIsDenied] = useState([]);
   /*
 HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
 
@@ -28,6 +31,39 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
       .then((res) => {
         if (Array.isArray(res.data)) {
           setUserData(res.data);
+        } else {
+          console.error("Expected an array but received:", res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    // PENDING BOOKINGS
+    axios
+      .get("http://localhost:5000/booking_pending")
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setIsPending(res.data);
+        } else {
+          console.error("Expected an array but received:", res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    // APPROVED BOOKINGS
+    axios
+      .get("http://localhost:5000/booking_approved")
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setIsApproved(res.data);
+        } else {
+          console.error("Expected an array but received:", res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    // DENIED BOOKINGS
+    axios
+      .get("http://localhost:5000/booking_denied")
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setIsDenied(res.data);
         } else {
           console.error("Expected an array but received:", res.data);
         }
@@ -111,13 +147,65 @@ HAVE THE ABILITY TO HIDE USER AND VENUE DATA TO FOCUS ON BOOKINGS
             <div className="flex flex-row justify-center">
               <div className="w-96 bg-gray-900 rounded-md text-center">
                 Pending
+                <div>
+                  {isPending.map((venue) => (
+                    <tr key={venue.venue_id}>
+                      <td className="w-28 text-xs ">{venue.eventname}</td>
+                      <td className="w-28 text-xs ">{venue.event_date}</td>
+                      <td className="w-28 text-xs ">
+                        {venue.college_afiliation}
+                      </td>
+                      <td className="w-28 text-xs ">{venue.event_facility}</td>
+                      <td className="w-28 text-xs ">
+                        <Link to={`/read/${venue.venue_id}`}>Read</Link>
+                        <Link to={`/edit/${venue.venue_id}`}>Edit</Link>
+                        <button>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </div>
               </div>
               <div className="w-96 bg-gray-900 rounded-md text-center ml-14 mr-14">
                 Approved
+                <div>
+                  {" "}
+                  {isApproved.map((venue) => (
+                    <tr key={venue.venue_id}>
+                      <td className="w-28 text-xs ">{venue.eventname}</td>
+                      <td className="w-28 text-xs ">{venue.event_date}</td>
+                      <td className="w-28 text-xs ">
+                        {venue.college_afiliation}
+                      </td>
+                      <td className="w-28 text-xs ">{venue.event_facility}</td>
+                      <td className="w-28 text-xs ">
+                        <Link to={`/read/${venue.venue_id}`}>Read</Link>
+                        <Link to={`/edit/${venue.venue_id}`}>Edit</Link>
+                        <button>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </div>
               </div>
               <div className="w-96 bg-gray-900 rounded-md text-center">
                 Denied
-                <div>wewew</div>
+                <div>
+                  {" "}
+                  {isDenied.map((venue) => (
+                    <tr key={venue.venue_id}>
+                      <td className="w-28 text-xs ">{venue.eventname}</td>
+                      <td className="w-28 text-xs ">{venue.event_date}</td>
+                      <td className="w-28 text-xs ">
+                        {venue.college_afiliation}
+                      </td>
+                      <td className="w-28 text-xs ">{venue.event_facility}</td>
+                      <td className="w-28 text-xs ">
+                        <Link to={`/read/${venue.venue_id}`}>Read</Link>
+                        <Link to={`/edit/${venue.venue_id}`}>Edit</Link>
+                        <button>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
